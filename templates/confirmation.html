@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Calcul Unitaire{% endblock %}
+
+{% block content %}
+    {% if saved_files %}
+    <h4>Le traitement des données est terminé. Vous pouvez visualisr le résultat en telechargeant ci dessous les corrections effectuees et les erreurs detectees:</h4>
+   
+        {% for filename in saved_files %}
+        <ul>
+            <li>
+                <a href="{{ url_for('download_file', filename=filename) }}" download="{{ filename }}">{{ filename }}</a>
+            </li>
+        </ul>    
+        {% endfor %}
+        <a href="/upload_data" class="btn-danger">Effacer le formulaire et recommencer</a>
+    {% endif %}  
+   
+    {% if result %}
+    <h1>Résultat du Calcul</h1>
+        <p>Orientation vraie : {{ result.orientation_vraie }} degrés</p>
+        <p>Orientation magnétique : {{ result.orientation_magnetique }} degrés</p>
+        <p>Distance : {{ result.distance_nautique }} NM </p>
+        <a href="/upload_unit" class="btn-danger">Effacer le formulaire et recommencer</a>
+    {% endif %}
+       
+     
+    {% endblock %}

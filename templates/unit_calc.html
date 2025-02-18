@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Calcul Unitaire{% endblock %}
+
+{% block content %}
+    <h2>Calcul Unitaire</h2>
+    <p>Remplissez le formulaire pour un calcul ponctuel d'orientation et de distances </p>
+                
+        <form method="POST" action='/calculs' >
+            <div class="form-row">
+                <label for="lat1">Latitude point 1:</label>
+                <input type="text" id="lat1" name="lat1" {% if request.form.lat1 %} value="{{ request.form.lat1 }}" {% endif %}>
+        
+                <label for="Lon1"> Longitude point 1:</label>
+                <input type="text" id="Lon1" name="Lon1" {% if request.form.Lon1 %} value="{{ request.form.Lon1 }}" {% endif %}>
+            </div>
+        
+            <div class="form-row">
+                <label for="lat2">Latitude point 2:</label>
+                <input type="text" id="lat2" name="lat2" {% if request.form.lat2 %} value="{{ request.form.lat2 }}" {% endif %}>
+        
+                <label for="Lon2"> Longitude point 2:</label>
+                <input type="text" id="Lon2" name="Lon2" {% if request.form.Lon2 %} value="{{ request.form.Lon2 }}" {% endif %}>
+            </div>
+            <h3>Référence de calcul de la déclinaison magnétique:</h3>
+            <div class="form-row">
+                
+                <label for="year">Année de référence :</label>
+                <input type="text" id="year" name="year" {% if request.form.year %} value="{{ request.form.year }}" {% endif %}>
+        
+                <label for="month">Mois de référence:</label>
+                <input type="text" id="month" name="month" {% if request.form.month %} value="{{ request.form.month }}" {% endif %}>
+        
+                <label for="day">Jour de référence:</label>
+                <input type="text" id="day" name="day" {% if request.form.day %} value="{{ request.form.day }}" {% endif %}>
+            </div>
+        
+            <input type="submit" value="Calculer">
+        </form>
+    
+
+{% endblock %}
+
+

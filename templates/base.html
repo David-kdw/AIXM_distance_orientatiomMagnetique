@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Site{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Accueil</a></li>
+            <li><a href="{{ url_for('upload_form') }}">Calcul Unitaire</a></li>
+            <li><a href="{{ url_for('upload_forms') }}">Calcul Dataset AIXM</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+        <aside class="sidebar">
+            <img src="{{ url_for('static', filename='images/myimage.jpg') }}" alt="Illustration">
+            <img src="{{ url_for('static', filename='images/mygif.gif') }}" alt="Animation">
+        </aside>
+    </div>
+
+  
+
+    <footer class="footer">
+        <p>&copy; 2025 - Mon Site Web</p>
+    </footer>
+</body>
+</html>

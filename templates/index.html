@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <h1>  &#x1F604; Bienvenue sur notre site</h1>
+    <h4>Cette application est concue pour permettre aux usagers de trouver la distance entre deux points de coordonnées parcourue par un aeronef et de determiner l'orientation magnetique entre ces deux points dans la projection WGS 84.
+        Elle permet egalement de charger une dataset AIXM de données de routes ATS pour calculer les distances et les orientations magnétiques des sections de route </h4>
+    <br/>
+    <p>------------------------------------------</p>
+    <h5>Sélectionnez un menu ci-dessus pour commencer.</h5>
+    
+
+    <div class="comments-section">
+        <h3>Laissez un commentaire</h3>
+        <form method="POST" action="{{ url_for('add_comment') }}">
+            <input type="text" name="pseudo" placeholder="Votre pseudo" required>
+            <textarea name="comment" placeholder="Votre commentaire..." required></textarea>
+            <button type="submit">Publier</button>
+        </form>
+    
+        <h3>Commentaires</h3>
+        <ul class="comment-list">
+            {% for comment in comments %}
+                <li>
+                    <p><strong>{{ comment.pseudo }}</strong> : {{ comment.text }}</p>
+                    <button onclick="toggleReplyForm('{{ comment.id }}')">Répondre</button>
+                    
+                    {% if comment.pseudo == session['pseudo'] or session.get('is_admin') %}
+                        <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn-edit">Modifier</a>
+                        <a href="{{ url_for('delete_comment', comment_id=comment.id) }}" class="btn-delete">Supprimer</a>
+                    {% endif %}
+                    
+                    <div id="reply-form-{{ comment.id }}" class="reply-form" style="display: none;">
+                        <form method="POST" action="{{ url_for('reply_comment', parent_id=comment.id) }}">
+                            <input type="text" name="pseudo" placeholder="Votre pseudo" required>
+                            <textarea name="reply_text" placeholder="Votre réponse..." required></textarea>
+                            <button type="submit">Répondre</button>
+                        </form>
+                    </div>
+    
+                    <ul>
+                        {% for reply in comment.replies %}
+                            <li>
+                                <p><strong>{{ reply.pseudo }}</strong> : {{ reply.text }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <script>
+        function toggleReplyForm(commentId) {
+            let form = document.getElementById("reply-form-" + commentId);
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+    </script>
+
+{% endblock %}

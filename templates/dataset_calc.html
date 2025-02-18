@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Calcul Dataset AIXM{% endblock %}
+
+{% block content %}
+    <h2>Calcul Dataset AIXM</h2>
+    
+
+    <p>Chargez un fichier AIXM4.5 de données de routes aériennes ATS </p>
+    <form method="POST" action="/process_data" enctype="multipart/form-data">
+        <input type="file" name="xml_file">
+        <label for="date_ref">Date de Référence (AAAA-MM-JJ) : </label>
+        <input type="text" name="date_ref" id="date_ref" required>
+        <input type="submit" value="Chargez et traiter">
+    </form>
+
+   
+{% endblock %}
+
